@@ -1,347 +1,1082 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DAY 1 - Smart Fitness Training</title>
-    <meta name="description" content="DAY 1 — AI 驱动的智能健身教练。融合 Apple HealthKit 与 AI 分析，为你量身定制训练计划，数据本地存储，隐私由你掌控。">
-    <meta property="og:title" content="DAY 1 - Smart Fitness Training">
-    <meta property="og:description" content="AI 驱动的智能健身教练，融合 Apple HealthKit 数据分析，量身定制训练计划。">
-    <meta property="og:type" content="website">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
-            background: #0A0A0F;
-            color: #FFFFFF;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Others Studio · 蔚蓝</title>
+<meta name="description" content="Others Studio（蔚蓝）— 海纳百川，包容万物。一个不随潮水、拥抱碰撞的新兴科技工作室。">
+<meta property="og:title" content="Others Studio · 蔚蓝">
+<meta property="og:description" content="海纳百川，包容万物。不随潮水，让想法相撞。">
+<meta property="og:type" content="website">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --azure-deep:#0B1A2E;
+  --azure-mid:#1B3A5C;
+  --azure-light:#2E6B9E;
+  --azure-bright:#4DA8DA;
+  --azure-glow:#7EC8E3;
+  --azure-pale:#B8E2F2;
+  --ocean-dark:#0A1628;
+  --text-primary:rgba(255,255,255,.92);
+  --text-secondary:rgba(255,255,255,.58);
+  --text-muted:rgba(255,255,255,.4);
+  --glass-border:rgba(255,255,255,.06);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue','PingFang SC',sans-serif;
+  background:#000;color:var(--text-primary);
+  overflow-x:hidden;
+}
 
-        /* Language Toggle */
-        .lang-toggle {
-            position: fixed;
-            top: 20px;
-            right: 24px;
-            z-index: 100;
-            display: flex;
-            gap: 8px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 20px;
-            padding: 4px;
-        }
-        .lang-btn {
-            padding: 6px 14px;
-            border: none;
-            border-radius: 16px;
-            background: transparent;
-            color: rgba(255,255,255,0.5);
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-        .lang-btn.active {
-            background: rgba(255,255,255,0.15);
-            color: #fff;
-        }
+/* ===== OCEAN CANVAS ===== */
+.ocean-bg{
+  position:fixed;inset:0;z-index:0;
+  background:linear-gradient(180deg,#000 0%,#020A18 20%,#0A1628 40%,#0F1F3A 60%,#0A1628 80%,#000 100%);
+}
+.ocean-bg::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 120% 60% at 50% 45%, rgba(77,168,218,.06) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 40% at 30% 60%, rgba(126,200,227,.04) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 75% 35%, rgba(46,107,158,.05) 0%, transparent 55%);
+  animation:oceanShift 20s ease-in-out infinite alternate;
+}
+@keyframes oceanShift{
+  0%{opacity:.6;transform:scale(1) translate(0,0)}
+  50%{opacity:1;transform:scale(1.05) translate(-1%,2%)}
+  100%{opacity:.7;transform:scale(1.02) translate(1%,-1%)}
+}
 
-        /* Navigation */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-        .logo span { color: #6C5CE7; }
-        .nav-links { display: flex; gap: 32px; }
-        .nav-links a {
-            color: rgba(255,255,255,0.6);
-            text-decoration: none;
-            font-size: 15px;
-            transition: color 0.3s;
-        }
-        .nav-links a:hover { color: #fff; }
+.stars{
+  position:fixed;inset:0;z-index:0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1px 1px at 25% 8%, rgba(255,255,255,.3), transparent),
+    radial-gradient(1.5px 1.5px at 40% 22%, rgba(255,255,255,.2), transparent),
+    radial-gradient(1px 1px at 55% 5%, rgba(255,255,255,.35), transparent),
+    radial-gradient(1px 1px at 70% 18%, rgba(255,255,255,.25), transparent),
+    radial-gradient(1.5px 1.5px at 85% 12%, rgba(255,255,255,.15), transparent),
+    radial-gradient(1px 1px at 15% 35%, rgba(255,255,255,.2), transparent),
+    radial-gradient(1px 1px at 90% 28%, rgba(255,255,255,.3), transparent),
+    radial-gradient(1px 1px at 50% 32%, rgba(255,255,255,.15), transparent),
+    radial-gradient(1px 1px at 35% 42%, rgba(255,255,255,.2), transparent),
+    radial-gradient(1px 1px at 62% 38%, rgba(255,255,255,.25), transparent),
+    radial-gradient(1px 1px at 78% 45%, rgba(255,255,255,.15), transparent);
+  animation:twinkle 8s ease-in-out infinite alternate;
+}
+@keyframes twinkle{0%{opacity:.3}50%{opacity:.6}100%{opacity:.4}}
 
-        /* Hero */
-        .hero {
-            text-align: center;
-            padding: 100px 24px 60px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .hero-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            background: rgba(108, 92, 231, 0.15);
-            border: 1px solid rgba(108, 92, 231, 0.3);
-            border-radius: 20px;
-            color: #A29BFE;
-            font-size: 14px;
-            margin-bottom: 24px;
-        }
-        .hero h1 {
-            font-size: clamp(36px, 6vw, 56px);
-            font-weight: 700;
-            line-height: 1.15;
-            letter-spacing: -1px;
-            margin-bottom: 20px;
-        }
-        .hero h1 .gradient {
-            background: linear-gradient(135deg, #6C5CE7, #A29BFE, #74B9FF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero p {
-            font-size: 18px;
-            color: rgba(255,255,255,0.55);
-            line-height: 1.7;
-            max-width: 560px;
-            margin: 0 auto 40px;
-        }
-        .app-store-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #fff;
-            color: #000;
-            padding: 14px 32px;
-            border-radius: 14px;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .app-store-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(108,92,231,0.3);
-        }
-        .app-store-btn svg { width: 24px; height: 24px; }
+/* ===== LANG ===== */
+.lang-toggle{
+  position:fixed;top:20px;right:24px;z-index:200;
+  display:flex;gap:4px;
+  background:rgba(8,16,32,.8);
+  border:1px solid var(--glass-border);border-radius:20px;padding:3px;
+}
+.lang-btn{
+  padding:5px 12px;border:none;border-radius:16px;
+  background:transparent;color:var(--text-muted);
+  cursor:pointer;font-size:14px;transition:all .3s;letter-spacing:.5px;
+}
+.lang-btn.active{background:rgba(77,168,218,.15);color:var(--azure-glow)}
 
-        /* Features */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
-            margin: 40px auto 80px;
-            padding: 0 24px;
-        }
-        .feature-card {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 16px;
-            padding: 28px 24px;
-            transition: border-color 0.3s;
-        }
-        .feature-card:hover { border-color: rgba(108,92,231,0.3); }
-        .feature-icon {
-            font-size: 28px;
-            margin-bottom: 14px;
-        }
-        .feature-card h3 {
-            font-size: 17px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        .feature-card p {
-            font-size: 15px;
-            color: rgba(255,255,255,0.55);
-            line-height: 1.7;
-        }
+/* ===== CONTENT WRAPPER ===== */
+.content{position:relative;z-index:1}
 
-        /* Privacy Banner */
-        .privacy-banner {
-            max-width: 800px;
-            margin: 0 auto 80px;
-            padding: 0 24px;
-        }
-        .privacy-banner-inner {
-            background: rgba(108, 92, 231, 0.06);
-            border: 1px solid rgba(108, 92, 231, 0.15);
-            border-radius: 16px;
-            padding: 32px;
-            text-align: center;
-        }
-        .privacy-banner h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        .privacy-banner p {
-            font-size: 15px;
-            color: rgba(255,255,255,0.5);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-        .privacy-banner .pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-        .pill {
-            padding: 6px 14px;
-            background: rgba(255,255,255,0.06);
-            border-radius: 20px;
-            font-size: 14px;
-            color: rgba(255,255,255,0.65);
-        }
+/* ===== NAV ===== */
+nav{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:24px 40px;max-width:1200px;margin:0 auto;
+}
+.logo-group{display:flex;align-items:baseline;gap:12px}
+.logo{
+  font-size:24px;font-weight:800;letter-spacing:2px;
+  background:linear-gradient(135deg,var(--azure-bright),var(--azure-glow));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.logo-cn{font-size:14px;color:var(--text-secondary);letter-spacing:3px;font-weight:300}
+.nav-links{display:flex;gap:28px}
+.nav-links a{
+  color:var(--text-secondary);text-decoration:none;font-size:15px;
+  letter-spacing:.5px;transition:color .3s;
+}
+.nav-links a:hover{color:var(--azure-glow)}
 
-        /* Footer */
-        footer {
-            border-top: 1px solid rgba(255,255,255,0.06);
-            padding: 40px 24px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 24px;
-        }
-        .footer-left p {
-            font-size: 14px;
-            color: rgba(255,255,255,0.45);
-            margin-top: 8px;
-        }
-        .footer-links { display: flex; gap: 24px; }
-        .footer-links a {
-            color: rgba(255,255,255,0.5);
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-        .footer-links a:hover { color: #A29BFE; }
-        .footer-bottom {
-            text-align: center;
-            margin-top: 32px;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.04);
-            font-size: 13px;
-            color: rgba(255,255,255,0.35);
-        }
+/* ===== HERO ===== */
+.hero{
+  text-align:center;padding:140px 24px 100px;
+  max-width:900px;margin:0 auto;position:relative;
+}
+.hero-earth-wrap{
+  position:relative;margin:0 auto 48px;
+  width:180px;height:180px;
+  cursor:grab;
+  transition:width .8s cubic-bezier(.25,.46,.45,.94),height .8s cubic-bezier(.25,.46,.45,.94),margin-bottom .8s;
+}
+.hero-earth-wrap.zoomed{
+  width:min(75vw,520px);height:min(75vw,520px);margin-bottom:60px;
+}
+.hero-earth-wrap:active{cursor:grabbing}
+#earthMount{
+  width:100%;height:100%;position:relative;z-index:2;
+}
+#earthMount canvas{
+  width:100%!important;height:100%!important;
+  display:block;cursor:grab;
+}
+#earthMount canvas:active{cursor:grabbing}
+.earth-glow-ring{
+  position:absolute;inset:-18%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(77,168,218,.12) 0%,rgba(77,168,218,.04) 35%,transparent 65%);
+  animation:earthGlow 5s ease-in-out infinite alternate;
+}
+@keyframes earthGlow{0%{opacity:.4;transform:scale(1)}100%{opacity:1;transform:scale(1.06)}}
+.earth-hint{
+  position:absolute;bottom:-32px;left:50%;transform:translateX(-50%);
+  font-size:13px;color:var(--text-muted);letter-spacing:2px;white-space:nowrap;
+  transition:opacity .5s;
+}
+.hero-earth-wrap.zoomed .earth-hint{opacity:0}
 
-        @media (max-width: 600px) {
-            nav { padding: 16px 20px; }
-            .nav-links { display: none; }
-            .hero { padding: 60px 20px 40px; }
-            .features { grid-template-columns: 1fr; }
-            .footer-content { flex-direction: column; align-items: center; text-align: center; }
-        }
-    </style>
+.hero h1{
+  font-size:clamp(42px,7vw,76px);font-weight:200;
+  line-height:1.1;letter-spacing:-1px;margin-bottom:8px;
+  color:rgba(255,255,255,.85);
+}
+.hero h1 .brand{
+  font-weight:800;letter-spacing:3px;
+  background:linear-gradient(135deg,var(--azure-bright),var(--azure-glow),var(--azure-pale));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero .cn-name{
+  font-size:clamp(20px,3vw,28px);font-weight:300;
+  color:var(--azure-glow);letter-spacing:8px;
+  margin-bottom:32px;opacity:.7;
+}
+.hero-desc{
+  font-size:18px;color:var(--text-secondary);
+  line-height:2;max-width:620px;margin:0 auto 48px;
+  letter-spacing:.3px;
+}
+.hero-scroll{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--text-muted);font-size:13px;letter-spacing:3px;text-transform:uppercase;
+  text-decoration:none;transition:color .3s;
+}
+.hero-scroll:hover{color:var(--azure-glow)}
+.scroll-line{
+  width:1px;height:40px;background:linear-gradient(180deg,var(--azure-bright),transparent);
+  animation:scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse{0%,100%{opacity:.3;height:40px}50%{opacity:1;height:56px}}
+
+/* ===== PHILOSOPHY ===== */
+.philosophy{max-width:1100px;margin:0 auto;padding:120px 24px}
+.section-header{text-align:center;margin-bottom:80px}
+.section-label{
+  font-size:13px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--azure-bright);margin-bottom:12px;display:block;
+}
+.section-title{
+  font-size:clamp(30px,5vw,48px);font-weight:200;letter-spacing:-1px;
+  line-height:1.2;
+}
+.section-title strong{
+  font-weight:700;
+  background:linear-gradient(135deg,var(--azure-bright),var(--azure-glow));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+.values{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+}
+.value-card{
+  position:relative;overflow:hidden;
+  background:rgba(8,18,36,.65);
+  border:1px solid rgba(77,168,218,.08);
+  border-radius:24px;padding:48px 32px 40px;
+  transition:border-color .5s,transform .5s cubic-bezier(.25,.46,.45,.94),box-shadow .5s;
+}
+.value-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(77,168,218,.3),transparent);
+  opacity:0;transition:opacity .5s;
+}
+.value-card:hover{
+  border-color:rgba(77,168,218,.2);
+  transform:translateY(-8px);
+  box-shadow:0 30px 80px rgba(0,0,0,.4),0 0 60px rgba(77,168,218,.05);
+  will-change:transform;
+}
+.value-card:hover::before{opacity:1}
+.value-num{
+  font-size:64px;font-weight:900;
+  background:linear-gradient(180deg,rgba(77,168,218,.15),transparent);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1;margin-bottom:20px;
+}
+.value-title-zh{
+  font-size:22px;font-weight:700;margin-bottom:6px;
+  letter-spacing:1px;
+}
+.value-title-en{
+  font-size:13px;color:var(--text-muted);letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:20px;
+}
+.value-desc{
+  font-size:15px;color:var(--text-secondary);line-height:1.9;
+}
+
+/* ===== FAILURE PHILOSOPHY ===== */
+.failure{max-width:1000px;margin:0 auto;padding:120px 24px;position:relative}
+.failure::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:1px;height:80px;
+  background:linear-gradient(180deg,transparent,rgba(77,168,218,.2),transparent);
+}
+.failure-header{text-align:center;margin-bottom:72px}
+.failure-quote-block{
+  position:relative;
+  background:rgba(255,255,255,.015);
+  border:1px solid rgba(77,168,218,.06);
+  border-radius:28px;padding:56px 48px;
+  margin-bottom:40px;
+}
+.failure-quote-block::before{
+  content:'\201C';position:absolute;top:20px;left:32px;
+  font-size:80px;font-family:Georgia,serif;line-height:1;
+  background:linear-gradient(180deg,rgba(77,168,218,.12),transparent);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.failure-quote-block p{
+  font-size:19px;color:var(--text-primary);line-height:2;
+  font-weight:300;letter-spacing:.2px;
+}
+.failure-quote-block .source{
+  margin-top:20px;font-size:14px;color:var(--text-muted);
+  letter-spacing:1px;font-style:italic;
+}
+.failure-pillars{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;
+}
+.failure-pillar{
+  background:rgba(255,255,255,.02);
+  border:1px solid var(--glass-border);border-radius:20px;
+  padding:36px 28px;transition:border-color .5s,transform .5s,box-shadow .5s;
+}
+.failure-pillar:hover{
+  border-color:rgba(77,168,218,.15);transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(0,0,0,.3);
+  will-change:transform;
+}
+.pillar-icon{
+  width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+  background:rgba(77,168,218,.06);border:1px solid rgba(77,168,218,.1);
+  border-radius:12px;margin-bottom:18px;font-size:20px;
+}
+.failure-pillar h4{font-size:17px;font-weight:700;margin-bottom:10px;letter-spacing:-.2px}
+.failure-pillar p{font-size:15px;color:var(--text-secondary);line-height:1.85}
+.failure-manifesto{
+  margin-top:48px;text-align:center;
+  padding:40px 32px;
+  background:linear-gradient(135deg,rgba(77,168,218,.04),rgba(126,200,227,.02));
+  border:1px solid rgba(77,168,218,.08);
+  border-radius:20px;
+}
+.failure-manifesto p{
+  font-size:16px;color:var(--text-secondary);line-height:2;
+  max-width:640px;margin:0 auto;
+}
+.failure-manifesto .bold-line{
+  font-size:20px;font-weight:700;color:var(--text-primary);
+  margin-bottom:12px;letter-spacing:-.3px;
+}
+
+/* ===== ORIGIN STORY ===== */
+.origin{
+  padding:120px 24px;
+  background:linear-gradient(180deg,transparent 0%,rgba(10,22,40,.5) 30%,rgba(10,22,40,.5) 70%,transparent 100%);
+}
+.origin-inner{
+  max-width:800px;margin:0 auto;
+  display:flex;gap:64px;align-items:center;
+}
+.origin-visual{
+  flex:0 0 240px;height:240px;position:relative;
+}
+.origin-visual canvas{
+  width:100%!important;height:100%!important;display:block;
+}
+
+.origin-text{flex:1}
+.origin-text h3{
+  font-size:28px;font-weight:200;margin-bottom:20px;letter-spacing:-.5px;
+}
+.origin-text h3 strong{
+  font-weight:700;
+  background:linear-gradient(135deg,var(--azure-bright),var(--azure-glow));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.origin-text p{
+  font-size:16px;color:var(--text-secondary);line-height:2;
+}
+.origin-text .highlight{
+  display:inline;
+  background:linear-gradient(180deg,transparent 60%,rgba(77,168,218,.15) 60%);
+}
+
+/* ===== PRODUCTS ===== */
+.products{max-width:1100px;margin:0 auto;padding:120px 24px}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+.product-card{
+  position:relative;overflow:hidden;
+  background:rgba(255,255,255,.02);
+  border:1px solid var(--glass-border);border-radius:24px;
+  padding:48px 36px;transition:border-color .5s,transform .5s,box-shadow .5s;
+}
+.product-card:hover{
+  border-color:rgba(77,168,218,.15);transform:translateY(-4px);
+  box-shadow:0 20px 60px rgba(0,0,0,.3);
+  will-change:transform;
+}
+.product-icon{
+  width:56px;height:56px;display:flex;align-items:center;justify-content:center;
+  background:rgba(77,168,218,.08);border:1px solid rgba(77,168,218,.12);
+  border-radius:16px;margin-bottom:24px;font-size:24px;
+}
+.product-card h3{font-size:20px;font-weight:700;margin-bottom:8px;letter-spacing:-.3px}
+.product-card .subtitle{font-size:14px;color:var(--azure-bright);letter-spacing:1px;margin-bottom:16px}
+.product-card p{font-size:15px;color:var(--text-secondary);line-height:1.8}
+.product-link{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:20px;font-size:14px;color:var(--azure-glow);
+  text-decoration:none;transition:gap .3s;
+}
+.product-link:hover{gap:10px}
+.product-link svg{width:16px;height:16px}
+.product-badge{
+  position:absolute;top:20px;right:20px;
+  padding:4px 12px;border-radius:8px;
+  font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+}
+.badge-live{background:rgba(39,174,96,.12);color:#27AE60;border:1px solid rgba(39,174,96,.2)}
+.badge-soon{background:rgba(77,168,218,.1);color:var(--azure-bright);border:1px solid rgba(77,168,218,.15)}
+
+/* ===== FOUNDER ===== */
+.founder{
+  padding:120px 24px;
+  background:linear-gradient(180deg,transparent 0%,rgba(10,22,40,.3) 50%,transparent 100%);
+}
+.founder-inner{
+  max-width:700px;margin:0 auto;text-align:center;
+}
+.founder-avatar{
+  width:80px;height:80px;border-radius:50%;margin:0 auto 28px;
+  background:linear-gradient(135deg,var(--azure-mid),var(--azure-bright));
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;font-weight:800;color:rgba(255,255,255,.9);
+  box-shadow:0 0 40px rgba(77,168,218,.15);
+  border:2px solid rgba(77,168,218,.2);
+}
+.founder-name{font-size:20px;font-weight:600;margin-bottom:4px}
+.founder-title{font-size:14px;color:var(--azure-bright);letter-spacing:1px;margin-bottom:24px}
+.founder-quote{
+  font-size:17px;color:var(--text-secondary);line-height:2;
+  font-style:italic;position:relative;
+  padding:0 20px;
+}
+.founder-quote::before,.founder-quote::after{
+  font-size:48px;color:rgba(77,168,218,.15);font-style:normal;
+  font-family:Georgia,serif;line-height:1;
+}
+.founder-quote::before{content:'\201C';position:absolute;left:-10px;top:-10px}
+.founder-quote::after{content:'\201D'}
+.founder-links{
+  display:flex;gap:16px;justify-content:center;margin-top:32px;
+}
+.founder-links a{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 20px;border-radius:10px;font-size:14px;
+  color:var(--text-secondary);text-decoration:none;
+  background:rgba(255,255,255,.03);border:1px solid var(--glass-border);
+  transition:all .3s;letter-spacing:.5px;
+}
+.founder-links a:hover{border-color:rgba(77,168,218,.2);color:var(--azure-glow)}
+.founder-links a svg{width:14px;height:14px}
+
+/* ===== FOOTER ===== */
+footer{
+  border-top:1px solid rgba(255,255,255,.04);
+  padding:40px 24px;position:relative;z-index:1;
+}
+.footer-inner{
+  max-width:1100px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;
+}
+.footer-left{display:flex;align-items:baseline;gap:10px}
+.footer-left .logo-sm{
+  font-size:16px;font-weight:800;letter-spacing:2px;
+  background:linear-gradient(135deg,var(--azure-bright),var(--azure-glow));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.footer-left .cn-sm{font-size:13px;color:var(--text-muted);letter-spacing:2px}
+.footer-right{font-size:13px;color:rgba(255,255,255,.25)}
+.footer-links{display:flex;gap:20px}
+.footer-links a{color:rgba(255,255,255,.35);text-decoration:none;font-size:14px;transition:color .3s}
+.footer-links a:hover{color:var(--azure-glow)}
+
+/* ===== SCROLL ===== */
+.fade-in{opacity:0;transform:translateY(50px);transition:opacity .8s ease,transform .8s ease;will-change:transform,opacity}
+.fade-in.visible{opacity:1;transform:none}
+.delay-1{transition-delay:.1s}
+.delay-2{transition-delay:.2s}
+.delay-3{transition-delay:.3s}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  nav{padding:16px 20px}
+  .nav-links{display:none}
+  .hero{padding:100px 20px 80px}
+  .hero-earth-wrap{width:140px;height:140px;margin-bottom:36px}
+  .values{grid-template-columns:1fr;gap:16px}
+  .value-card{padding:36px 24px 32px}
+  .origin-inner{flex-direction:column;gap:40px}
+  .origin-visual{flex:none;width:180px;height:180px}
+  .origin-visual canvas{width:100%!important;height:100%!important}
+  .product-grid{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;align-items:center;text-align:center}
+}
+</style>
 </head>
 <body>
 
+<div class="ocean-bg"></div>
+<div class="stars"></div>
+
+<!-- LANG -->
 <div class="lang-toggle">
-    <button class="lang-btn active" onclick="switchLang('zh', this)">中文</button>
-    <button class="lang-btn" onclick="switchLang('en', this)">EN</button>
+  <button class="lang-btn active" onclick="switchLang('zh', this)">中文</button>
+  <button class="lang-btn" onclick="switchLang('en', this)">EN</button>
 </div>
 
+<!-- CONTENT -->
+<div class="content">
+
 <nav>
-    <div class="logo">DAY <span>1</span></div>
-    <div class="nav-links">
-        <a href="others.html" data-zh="Others 蔚藍" data-en="Others Studio">Others 蔚藍</a>
-        <a href="privacy.html" data-zh="私隱政策" data-en="Privacy">私隱政策</a>
-        <a href="terms.html" data-zh="用戶協議" data-en="Terms">用戶協議</a>
-    </div>
+  <div class="logo-group">
+    <div class="logo">OTHERS</div>
+    <div class="logo-cn" data-zh="蔚蓝" data-en="Azure">蔚蓝</div>
+  </div>
+  <div class="nav-links">
+    <a href="#philosophy" data-zh="理念" data-en="Philosophy">理念</a>
+    <a href="#failure" data-zh="失败哲学" data-en="On Failure">失败哲学</a>
+    <a href="#origin" data-zh="起源" data-en="Origin">起源</a>
+    <a href="#products" data-zh="产品" data-en="Products">产品</a>
+    <a href="#founder" data-zh="关于" data-en="About">关于</a>
+  </div>
 </nav>
 
+<!-- ===== HERO ===== -->
 <section class="hero">
-    <div class="hero-badge" data-zh="AI 驅動的智能健身" data-en="AI-Powered Smart Fitness">AI 驅動的智能健身</div>
-    <h1>
-        <span data-zh="你的專屬" data-en="Your Personal">你的專屬</span><br>
-        <span class="gradient" data-zh="AI 訓練教練" data-en="AI Training Coach">AI 訓練教練</span>
-    </h1>
-    <p data-zh="DAY 1 結合 Apple HealthKit 健康數據與 AI 智能分析，為你制定個人化訓練計劃。數據存儲在本機，私隱由你掌控。" data-en="DAY 1 combines Apple HealthKit data with AI-powered analysis to create personalised training plans. Your data stays on your device — your privacy, your control.">DAY 1 結合 Apple HealthKit 健康數據與 AI 智能分析，為你制定個人化訓練計劃。數據存儲在本機，私隱由你掌控。</p>
-    <a href="#" class="app-store-btn">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        <span data-zh="App Store 下載" data-en="Download on App Store">App Store 下載</span>
-    </a>
+  <div class="hero-earth-wrap" id="earthWrap">
+    <div class="earth-glow-ring"></div>
+    <div id="earthMount"></div>
+    <div class="earth-hint" data-zh="点击 · 探索地球" data-en="Tap · Explore Earth">点击 · 探索地球</div>
+  </div>
+  <h1 class="fade-in">
+    <span class="brand">OTHERS</span>
+  </h1>
+  <div class="cn-name fade-in delay-1" data-zh="蔚蓝" data-en="Azure">蔚蓝</div>
+  <p class="hero-desc fade-in delay-2" data-zh="从太空俯瞰，地球大部分都是海洋。蔚蓝代表天空与海洋，代表氧气与人类的起源。我们相信——包容、碰撞与起源，是一切创新的开始。" data-en="From space, Earth is mostly ocean. Azure represents sky and sea, oxygen and the origin of humanity. We believe — inclusion, collision, and origin are where all innovation begins.">从太空俯瞰，地球大部分都是海洋。蔚蓝代表天空与海洋，代表氧气与人类的起源。我们相信——包容、碰撞与起源，是一切创新的开始。</p>
+  <a href="#philosophy" class="hero-scroll">
+    <div class="scroll-line"></div>
+  </a>
 </section>
 
-<section class="features">
-    <div class="feature-card">
-        <div class="feature-icon">🏋️</div>
-        <h3 data-zh="智能訓練計劃" data-en="Smart Training Plans">智能訓練計劃</h3>
-        <p data-zh="基於你的身體數據和恢復狀態，AI 自動調整每日訓練強度和內容" data-en="AI automatically adjusts daily training intensity and content based on your body data and recovery status">基於你的身體數據和恢復狀態，AI 自動調整每日訓練強度和內容</p>
+<!-- ===== PHILOSOPHY ===== -->
+<section class="philosophy" id="philosophy">
+  <div class="section-header fade-in">
+    <span class="section-label" data-zh="核心理念" data-en="Core Philosophy">核心理念</span>
+    <h2 class="section-title" data-zh="我们不定义你是谁，<br>我们让你<strong>成为你自己</strong>" data-en="We don't define who you are.<br>We let you <strong>become yourself</strong>">我们不定义你是谁，<br>我们让你<strong>成为你自己</strong></h2>
+  </div>
+
+  <div class="values">
+    <div class="value-card fade-in">
+      <div class="value-num">01</div>
+      <div class="value-title-zh" data-zh="海纳百川" data-en="All-Embracing">海纳百川</div>
+      <div class="value-title-en">Embrace All Streams</div>
+      <p class="value-desc" data-zh="无论你有什么想法，哪怕别人觉得你很奇怪、很疯狂，或者你有不一样的思维逻辑、学术价值观和成长路线——在这里，你都是受欢迎的。包容万物，不设边界。" data-en="No matter what ideas you hold — even if others call you strange or crazy, or you follow a different logic, academic path, or growth trajectory — you are welcome here. We embrace all, with no boundaries.">无论你有什么想法，哪怕别人觉得你很奇怪、很疯狂，或者你有不一样的思维逻辑、学术价值观和成长路线——在这里，你都是受欢迎的。包容万物，不设边界。</p>
     </div>
-    <div class="feature-card">
-        <div class="feature-icon">❤️</div>
-        <h3 data-zh="HealthKit 深度整合" data-en="Deep HealthKit Integration">HealthKit 深度整合</h3>
-        <p data-zh="讀取心率、HRV、睡眠、體溫等數據，全面評估你的身體準備度" data-en="Reads heart rate, HRV, sleep, body temperature and more to assess your readiness">讀取心率、HRV、睡眠、體溫等數據，全面評估你的身體準備度</p>
+
+    <div class="value-card fade-in delay-1">
+      <div class="value-num">02</div>
+      <div class="value-title-zh" data-zh="不随潮水" data-en="Against the Tide">不随潮水</div>
+      <div class="value-title-en">Against the Tide</div>
+      <p class="value-desc" data-zh="我们既可以随大流，也可以逆风而上。我们没有统一、固定的思维定式，我们随着心中认同的目标前进——而不是被时代的浪潮裹挟着前进。" data-en="We can go with the flow, or we can sail against the wind. We don't follow rigid patterns — we move toward goals we truly believe in, not swept along by the tides of the era.">我们既可以随大流，也可以逆风而上。我们没有统一、固定的思维定式，我们随着心中认同的目标前进——而不是被时代的浪潮裹挟着前进。</p>
     </div>
-    <div class="feature-card">
-        <div class="feature-icon">🤖</div>
-        <h3 data-zh="AI 對話教練" data-en="AI Chat Coach">AI 對話教練</h3>
-        <p data-zh="隨時向 AI 教練提問，獲得基於你健康數據的個人化訓練和飲食建議" data-en="Ask your AI coach anytime for personalised training and nutrition advice based on your health data">隨時向 AI 教練提問，獲得基於你健康數據的個人化訓練和飲食建議</p>
+
+    <div class="value-card fade-in delay-2">
+      <div class="value-num">03</div>
+      <div class="value-title-zh" data-zh="让想法相撞" data-en="Let Ideas Collide">让想法相撞</div>
+      <div class="value-title-en">Let Ideas Collide</div>
+      <p class="value-desc" data-zh="我们不设立统一的思想标准。如同春秋战国时期，每个人都可以分享不同的观点。让不同的思想在这里碰撞，为世界带来新的可能。" data-en="We set no unified standard of thought. Like the era of Warring States philosophers, everyone can share different perspectives. Let diverse ideas collide here, bringing new possibilities to the world.">我们不设立统一的思想标准。如同春秋战国时期，每个人都可以分享不同的观点。让不同的思想在这里碰撞，为世界带来新的可能。</p>
     </div>
-    <div class="feature-card">
-        <div class="feature-icon">🔒</div>
-        <h3 data-zh="私隱優先" data-en="Privacy First">私隱優先</h3>
-        <p data-zh="所有數據存儲在你的裝置本地，不上傳至任何伺服器，你的數據由你掌控" data-en="All data stored locally on your device, never uploaded to any server — you own your data">所有數據存儲在你的裝置本地，不上傳至任何伺服器，你的數據由你掌控</p>
-    </div>
-    <div class="feature-card">
-        <div class="feature-icon">🔄</div>
-        <h3 data-zh="恢復度評估" data-en="Recovery Assessment">恢復度評估</h3>
-        <p data-zh="綠燈 / 黃燈 / 紅燈系統，直觀告訴你今天是否適合高強度訓練" data-en="Green / Yellow / Red light system visually tells you if today is right for intense training">綠燈 / 黃燈 / 紅燈系統，直觀告訴你今天是否適合高強度訓練</p>
-    </div>
-    <div class="feature-card">
-        <div class="feature-icon">🍎</div>
-        <h3 data-zh="飲食追蹤" data-en="Nutrition Tracking">飲食追蹤</h3>
-        <p data-zh="記錄每日飲食，搭配訓練目標提供營養建議，助你達成體態目標" data-en="Track daily meals with nutrition advice tailored to your training goals">記錄每日飲食，搭配訓練目標提供營養建議，助你達成體態目標</p>
-    </div>
+  </div>
 </section>
 
-<section class="privacy-banner">
-    <div class="privacy-banner-inner">
-        <h3 data-zh="你的私隱，我們的承諾" data-en="Your Privacy, Our Commitment">你的私隱，我們的承諾</h3>
-        <p data-zh="DAY 1 採用本機優先架構，你的健康數據永遠不會離開你的裝置（除非你主動使用 AI 對話功能，且僅傳送脫敏摘要）。" data-en="DAY 1 uses a local-first architecture. Your health data never leaves your device (unless you actively use the AI chat feature, and only de-identified summaries are transmitted).">DAY 1 採用本機優先架構，你的健康數據永遠不會離開你的裝置（除非你主動使用 AI 對話功能，且僅傳送脫敏摘要）。</p>
-        <div class="pills">
-            <span class="pill" data-zh="無帳號註冊" data-en="No Account Required">無帳號註冊</span>
-            <span class="pill" data-zh="無廣告追蹤" data-en="No Ad Tracking">無廣告追蹤</span>
-            <span class="pill" data-zh="本機存儲" data-en="Local Storage">本機存儲</span>
-            <span class="pill" data-zh="開放 AI 選擇" data-en="Open AI Choice">開放 AI 選擇</span>
-            <span class="pill" data-zh="符合 PDPO" data-en="PDPO Compliant">符合 PDPO</span>
-        </div>
+<!-- ===== FAILURE PHILOSOPHY ===== -->
+<section class="failure" id="failure">
+  <div class="failure-header fade-in">
+    <span class="section-label" data-zh="失败哲学" data-en="On Failure">失败哲学</span>
+    <h2 class="section-title" data-zh="失败不是终点，<br>是<strong>经验库的第一笔存款</strong>" data-en="Failure is not the end.<br>It's the <strong>first deposit in our experience vault</strong>">失败不是终点，<br>是<strong>经验库的第一笔存款</strong></h2>
+  </div>
+
+  <div class="failure-quote-block fade-in">
+    <p data-zh="我们并不怎么赞扬成功的必要性。我们更赞扬的是——大家愿意去尝试。尝试、失败、再获得新的灵感继续前进，这才是我们的标准。前期用小成本去排雷，为后期的胜利不断增添筹码。失败不值得叹息——它是里程碑上的每一个脚印。" data-en="We don't celebrate the necessity of success. What we celebrate is the willingness to try. Try, fail, gain new inspiration, and keep going — that's our standard. Clearing mines at small cost upfront adds ammunition for future victories. Failure isn't worth sighing over — it's every footprint on our milestone.">我们并不怎么赞扬成功的必要性。我们更赞扬的是——大家愿意去尝试。尝试、失败、再获得新的灵感继续前进，这才是我们的标准。前期用小成本去排雷，为后期的胜利不断增添筹码。失败不值得叹息——它是里程碑上的每一个脚印。</p>
+    <div class="source">— Others Studio Manifesto</div>
+  </div>
+
+  <div class="failure-pillars">
+    <div class="failure-pillar fade-in">
+      <div class="pillar-icon">💥</div>
+      <h4 data-zh="失败即排雷" data-en="Failure is Mine-Clearing">失败即排雷</h4>
+      <p data-zh="每一次失败都是在前期用小成本排除一个隐患。你今天踩过的坑，就是明天少走的弯路。失败的经验充实我们的经验库，未来遇到类似问题时，直接调用，省下的成本不可估量。" data-en="Every failure clears a hidden mine at minimal cost. The pit you step in today is the detour you avoid tomorrow. Failed experiences fill our knowledge vault — when similar problems arise, we pull from it, saving immeasurable cost.">每一次失败都是在前期用小成本排除一个隐患。你今天踩过的坑，就是明天少走的弯路。失败的经验充实我们的经验库，未来遇到类似问题时，直接调用，省下的成本不可估量。</p>
     </div>
+
+    <div class="failure-pillar fade-in delay-1">
+      <div class="pillar-icon">🔥</div>
+      <h4 data-zh="傻傻的乐观" data-en="Foolishly Optimistic">傻傻的乐观</h4>
+      <p data-zh="我们的价值观就是乐观——甚至要乐观到"傻傻的乐观"。因为只有乐观的人才能不断前进。钱既然花了就花到底，看看失败的时候到底是什么样的。这份勇气，是我们最宝贵的资产。" data-en="Our value is optimism — even 'foolishly optimistic.' Because only optimists keep moving forward. If we've spent the money, we spend it to the end — let's see what failure actually looks like. This courage is our most valuable asset.">我们的价值观就是乐观——甚至要乐观到"傻傻的乐观"。因为只有乐观的人才能不断前进。钱既然花了就花到底，看看失败的时候到底是什么样的。这份勇气，是我们最宝贵的资产。</p>
+    </div>
+
+    <div class="failure-pillar fade-in delay-2">
+      <div class="pillar-icon">🧪</div>
+      <h4 data-zh="产品不是赌博" data-en="Products ≠ Gambling">产品不是赌博</h4>
+      <p data-zh="赌博失败了不会留下任何经验，但做产品会。DAY 1 改了 60 个版本——每一次删掉重做，都是一次认知升级。很多很难的事情为什么不去试？失败了你就有了经验，这些经验就是你未来的弹药库。" data-en="Gambling leaves no lessons when you lose, but building products does. DAY 1 went through 60 versions — every deletion and rebuild was a cognitive upgrade. Why not try the hard things? When you fail, you gain experience — and that experience becomes your future arsenal.">赌博失败了不会留下任何经验，但做产品会。DAY 1 改了 60 个版本——每一次删掉重做，都是一次认知升级。很多很难的事情为什么不去试？失败了你就有了经验，这些经验就是你未来的弹药库。</p>
+    </div>
+  </div>
+
+  <div class="failure-manifesto fade-in">
+    <p class="bold-line" data-zh="绝不后退，一直前进" data-en="Never retreat. Always advance.">绝不后退，一直前进</p>
+    <p data-zh="当年乔布斯在满是千亿巨头的环境里，有勇气对 IBM 说"I will be the best competitor." 我们也一样——拒绝大公司病，保持初创者的锐气。在蔚蓝，失败是一个很好的奖励，而重新再来的勇气，让你 stronger, 让你 powerful." data-en="When Steve Jobs stood among trillion-dollar giants, he had the courage to tell IBM: 'I will be the best competitor.' We carry the same spirit — rejecting corporate disease, keeping the edge of a founder. At Others, failure is a great reward, and the courage to start again makes you stronger, makes you powerful.">当年乔布斯在满是千亿巨头的环境里，有勇气对 IBM 说"I will be the best competitor." 我们也一样——拒绝大公司病，保持初创者的锐气。在蔚蓝，失败是一个很好的奖励，而重新再来的勇气，让你 stronger, 让你 powerful.</p>
+  </div>
 </section>
 
+<!-- ===== ORIGIN ===== -->
+<section class="origin" id="origin">
+  <div class="origin-inner">
+    <div class="origin-visual fade-in" id="originEarthMount">
+    </div>
+    <div class="origin-text fade-in delay-1">
+      <h3 data-zh="为什么叫<strong>蔚蓝</strong>？" data-en="Why <strong>Azure</strong>?">为什么叫<strong>蔚蓝</strong>？</h3>
+      <p data-zh="从太空俯瞰地球，映入眼帘的是无边的蔚蓝——那是海洋，是天空，是大气层中赋予我们呼吸的氧气。" data-en="From space, Earth reveals an endless azure — the ocean, the sky, the atmosphere that gives us the air we breathe.">从太空俯瞰地球，映入眼帘的是无边的蔚蓝——那是海洋，是天空，是大气层中赋予我们呼吸的氧气。</p>
+      <p style="margin-top:16px" data-zh="蔚蓝是一切生命的起点。海洋孕育了最初的生命，天空承载着无限的可能。我们以此为名，因为我们相信——<span class='highlight'>每一个伟大的想法，都始于一片包容的蔚蓝之中。</span>" data-en="Azure is the origin of all life. The ocean nurtured the first life; the sky holds infinite possibilities. We take this name because we believe — <span class='highlight'>every great idea begins in an embracing azure.</span>">蔚蓝是一切生命的起点。海洋孕育了最初的生命，天空承载着无限的可能。我们以此为名，因为我们相信——<span class="highlight">每一个伟大的想法，都始于一片包容的蔚蓝之中。</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRODUCTS ===== -->
+<section class="products" id="products">
+  <div class="section-header fade-in">
+    <span class="section-label" data-zh="我们的产品" data-en="Our Products">我们的产品</span>
+    <h2 class="section-title" data-zh="用技术<strong>重新定义</strong>可能" data-en="Redefining possibilities<br>with <strong>technology</strong>">用技术<strong>重新定义</strong>可能</h2>
+  </div>
+
+  <div class="product-grid">
+    <div class="product-card fade-in">
+      <div class="product-badge badge-live">Live</div>
+      <div class="product-icon">💪</div>
+      <h3>DAY 1</h3>
+      <div class="subtitle" data-zh="AI 智能健身教练" data-en="AI Smart Fitness Coach">AI 智能健身教练</div>
+      <p data-zh="基于运动科学文献的 AI 驱动健身 APP。融合 Apple HealthKit 与 Apple Watch，为你量身打造每日训练决策。你的电子 Spotter，让每一组都有人帮你看着。" data-en="An AI-powered fitness app built on sports science literature. Integrates Apple HealthKit and Apple Watch to craft your daily training decisions. Your electronic Spotter — someone watching every set.">基于运动科学文献的 AI 驱动健身 APP。融合 Apple HealthKit 与 Apple Watch，为你量身打造每日训练决策。你的电子 Spotter，让每一组都有人帮你看着。</p>
+      <a href="https://wei666-china.github.io/day1-app/" class="product-link" data-zh="了解 DAY 1" data-en="Explore DAY 1" target="_blank" rel="noopener">
+        <span data-zh="了解 DAY 1" data-en="Explore DAY 1">了解 DAY 1</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="product-card fade-in delay-1">
+      <div class="product-badge badge-soon" data-zh="即将推出" data-en="Coming Soon">即将推出</div>
+      <div class="product-icon">🧠</div>
+      <h3 data-zh="更多产品" data-en="More to Come">更多产品</h3>
+      <div class="subtitle" data-zh="敬请期待" data-en="Stay Tuned">敬请期待</div>
+      <p data-zh="我们正在酝酿更多有趣的项目。如果你有想法，欢迎与我们碰撞。蔚蓝的海洋，足够容纳每一颗有想法的灵魂。" data-en="We're brewing more exciting projects. If you have ideas, come collide with us. The azure ocean is vast enough for every creative soul.">我们正在酝酿更多有趣的项目。如果你有想法，欢迎与我们碰撞。蔚蓝的海洋，足够容纳每一颗有想法的灵魂。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOUNDER ===== -->
+<section class="founder" id="founder">
+  <div class="founder-inner fade-in">
+    <div class="founder-avatar">W</div>
+    <div class="founder-name">Liu Azure</div>
+    <div class="founder-title" data-zh="创始人 · Founder" data-en="Founder">创始人 · Founder</div>
+    <p class="founder-quote" data-zh="这是一个来自我 11 岁时的愿望。那时候我通常与身边的人讲，身边的人通常会抛来不理解的询问跟眼光，但我坚信有一天会走上这条路。那么，这里就是我的第一步。" data-en="This is a wish I've held since I was 11. Back then, whenever I shared it with people around me, they'd respond with puzzled looks and questioning glances. But I always believed I'd walk this path one day. So here it is — my first step.">这是一个来自我 11 岁时的愿望。那时候我通常与身边的人讲，身边的人通常会抛来不理解的询问跟眼光，但我坚信有一天会走上这条路。那么，这里就是我的第一步。</p>
+    <div class="founder-links">
+      <a href="https://www.linkedin.com/in/liu-azure" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <span>LinkedIn</span>
+      </a>
+      <a href="mailto:foraiandfocus@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        <span data-zh="联系我们" data-en="Contact">联系我们</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
 <footer>
-    <div class="footer-content">
-        <div class="footer-left">
-            <div class="logo">DAY <span style="color:#6C5CE7">1</span></div>
-            <p data-zh="Others Studio · 蔚藍 出品" data-en="By Others Studio · Azure">Others Studio · 蔚藍 出品</p>
-        </div>
-        <div class="footer-links">
-            <a href="others.html" data-zh="Others 蔚藍" data-en="Others Studio">Others 蔚藍</a>
-            <a href="privacy.html" data-zh="私隱政策" data-en="Privacy Policy">私隱政策</a>
-            <a href="terms.html" data-zh="用戶協議" data-en="Terms of Service">用戶協議</a>
-            <a href="mailto:foraiandfocus@gmail.com" data-zh="聯絡我們" data-en="Contact Us">聯絡我們</a>
-        </div>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <span class="logo-sm">OTHERS</span>
+      <span class="cn-sm" data-zh="蔚蓝" data-en="Azure">蔚蓝</span>
     </div>
-    <div class="footer-bottom">
-        &copy; 2025-2026 Others Studio · 蔚藍 — DAY 1. All rights reserved.
+    <div class="footer-links">
+      <a href="https://wei666-china.github.io/day1-app/" data-zh="DAY 1 产品" data-en="DAY 1 Product" target="_blank" rel="noopener">DAY 1 产品</a>
+      <a href="privacy.html" data-zh="隐私政策" data-en="Privacy">隐私政策</a>
+      <a href="terms.html" data-zh="用户协议" data-en="Terms">用户协议</a>
+      <a href="mailto:foraiandfocus@gmail.com" data-zh="联系" data-en="Contact">联系</a>
     </div>
+    <div class="footer-right">&copy; 2025-2026 Others Studio. All rights reserved.</div>
+  </div>
 </footer>
 
+</div>
+
+<script src="https://unpkg.com/three@0.152.2/build/three.min.js" integrity="sha384-aUS0jUAjhhBFNPifgxTHTNcsZDqkbegLd/JKEhJzK3Lyg9nFF1PZ2J++mzKwd8Kz" crossorigin="anonymous"></script>
 <script>
-function switchLang(lang, btn) {
-    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('[data-zh][data-en]').forEach(el => {
-        el.textContent = el.getAttribute('data-' + lang);
-    });
-    document.documentElement.lang = lang === 'zh' ? 'zh-Hans' : 'en';
+/* ===== LANGUAGE ===== */
+function switchLang(lang,btn){
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('[data-zh][data-en]').forEach(el=>{
+    const val=el.getAttribute('data-'+lang);
+    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA') el.placeholder=val;
+    else el.innerHTML=val;
+  });
+  document.documentElement.lang=lang==='zh'?'zh-Hans':'en';
 }
+
+/* ===== SCROLL ===== */
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+  });
+});
+
+/* ===== AZURE MINIMAL 3D EARTH ===== */
+(function(){
+  const wrap=document.getElementById('earthWrap');
+  const mount=document.getElementById('earthMount');
+  let W,H;
+  function getSize(){const r=wrap.getBoundingClientRect();W=r.width;H=r.height}
+  getSize();
+
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(45,1,0.1,100);
+  camera.position.z=2.8;
+
+  const renderer=new THREE.WebGLRenderer({alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(W,H);
+  renderer.setClearColor(0x000000,0);
+  mount.appendChild(renderer.domElement);
+
+  scene.add(new THREE.AmbientLight(0x667799,0.4));
+  const sun=new THREE.DirectionalLight(0xddeeff,1.6);
+  sun.position.set(5,3,5);
+  scene.add(sun);
+
+  const earthGeo=new THREE.SphereGeometry(1,96,96);
+
+  const placeholderMat=new THREE.MeshBasicMaterial({color:0x0e2a4a,transparent:true,opacity:1});
+  const placeholder=new THREE.Mesh(earthGeo,placeholderMat);
+  placeholder.rotation.x=0.23;
+  scene.add(placeholder);
+
+  const satImg=new Image();
+  satImg.crossOrigin='anonymous';
+  satImg.onload=function(){
+    const tw=2048,th=1024;
+    const c=document.createElement('canvas');
+    c.width=tw;c.height=th;
+    const g=c.getContext('2d');
+    g.drawImage(satImg,0,0,tw,th);
+    const imgData=g.getImageData(0,0,tw,th);
+    const d=imgData.data;
+
+    for(let i=0;i<d.length;i+=4){
+      const r=d[i],gr=d[i+1],b=d[i+2];
+      const lum=(r*0.299+gr*0.587+b*0.114)/255;
+      const maxC=Math.max(r,gr,b),minC=Math.min(r,gr,b);
+      const sat=(maxC-minC)/(maxC+1);
+
+      const isOcean=b>gr&&b>r&&sat>0.12;
+      const isIce=lum>0.75&&sat<0.18;
+
+      let tr,tg,tb;
+
+      if(isIce){
+        tr=175+lum*70;
+        tg=210+lum*40;
+        tb=235+lum*18;
+      } else if(isOcean){
+        tr=10+lum*18;
+        tg=40+lum*40;
+        tb=85+lum*55;
+      } else {
+        tr=45+lum*70;
+        tg=115+lum*65;
+        tb=165+lum*50;
+      }
+
+      d[i]=Math.min(255,Math.max(0,Math.round(tr)));
+      d[i+1]=Math.min(255,Math.max(0,Math.round(tg)));
+      d[i+2]=Math.min(255,Math.max(0,Math.round(tb)));
+    }
+    g.putImageData(imgData,0,0);
+
+    /* Gentle soften for clean look */
+    const soft=document.createElement('canvas');
+    soft.width=tw;soft.height=th;
+    const sg=soft.getContext('2d');
+    sg.drawImage(c,0,0,Math.floor(tw/3),Math.floor(th/3));
+    sg.drawImage(soft,0,0,Math.floor(tw/3),Math.floor(th/3),0,0,tw,th);
+    g.globalAlpha=0.25;
+    g.drawImage(soft,0,0);
+    g.globalAlpha=1.0;
+
+    const tex=new THREE.CanvasTexture(c);
+    tex.anisotropy=renderer.capabilities.getMaxAnisotropy();
+    buildEarth(tex);
+  };
+  satImg.src='textures/earth_daymap.jpg';
+
+  let earth,outline,glow;
+
+  function buildEarth(tex){
+    const earthMat=new THREE.ShaderMaterial({
+      uniforms:{
+        uMap:{value:tex},
+        uSunDir:{value:new THREE.Vector3(5,3,5).normalize()},
+      },
+      vertexShader:`
+        varying vec2 vUv;
+        varying vec3 vNormal;
+        varying vec3 vViewDir;
+        void main(){
+          vUv=uv;
+          vec4 mvPos=modelViewMatrix*vec4(position,1.0);
+          vNormal=normalize(normalMatrix*normal);
+          vViewDir=normalize(-mvPos.xyz);
+          gl_Position=projectionMatrix*mvPos;
+        }
+      `,
+      fragmentShader:`
+        uniform sampler2D uMap;
+        uniform vec3 uSunDir;
+        varying vec2 vUv;
+        varying vec3 vNormal;
+        varying vec3 vViewDir;
+
+        void main(){
+          vec3 base=texture2D(uMap,vUv).rgb;
+          float NdotL=dot(vNormal,uSunDir);
+
+          float toon=smoothstep(-0.5,-0.2,NdotL)*0.2
+                    +smoothstep(-0.02,0.22,NdotL)*0.28
+                    +smoothstep(0.38,0.62,NdotL)*0.28;
+          toon+=0.24;
+
+          vec3 lit=base*toon;
+
+          float spec=pow(max(0.0,dot(reflect(-uSunDir,vNormal),vViewDir)),32.0);
+          lit+=vec3(0.7,0.85,1.0)*spec*0.15;
+
+          float rim=1.0-max(0.0,dot(vNormal,vViewDir));
+          lit+=vec3(0.25,0.55,1.0)*smoothstep(0.55,1.0,rim)*0.35;
+
+          gl_FragColor=vec4(lit,1.0);
+        }
+      `
+    });
+
+    earth=new THREE.Mesh(earthGeo,earthMat);
+    earth.rotation.x=0.23;
+    scene.add(earth);
+
+    const outlineMat=new THREE.ShaderMaterial({
+      vertexShader:`void main(){vec3 p=position+normal*0.016;gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.0);}`,
+      fragmentShader:`void main(){gl_FragColor=vec4(0.02,0.04,0.10,1.0);}`,
+      side:THREE.BackSide
+    });
+    outline=new THREE.Mesh(earthGeo,outlineMat);
+    outline.rotation.x=0.23;
+    scene.add(outline);
+
+    const glowGeo=new THREE.SphereGeometry(1.08,48,48);
+    const glowMat=new THREE.ShaderMaterial({
+      vertexShader:`
+        varying vec3 vNormal;varying vec3 vViewDir;
+        void main(){vec4 mv=modelViewMatrix*vec4(position,1.0);vNormal=normalize(normalMatrix*normal);vViewDir=normalize(-mv.xyz);gl_Position=projectionMatrix*mv;}
+      `,
+      fragmentShader:`
+        varying vec3 vNormal;varying vec3 vViewDir;
+        void main(){
+          float rim=max(0.0,dot(vNormal,vViewDir));
+          float i=pow(rim,1.4)*0.45;
+          gl_FragColor=vec4(0.22,0.52,1.0,i);
+        }
+      `,
+      transparent:true,depthWrite:false,side:THREE.BackSide,blending:THREE.AdditiveBlending
+    });
+    glow=new THREE.Mesh(glowGeo,glowMat);
+    scene.add(glow);
+
+    let fade=1.0;
+    function fadeOut(){
+      fade-=0.04;
+      if(fade<=0){scene.remove(placeholder);placeholderMat.dispose();return;}
+      placeholderMat.opacity=fade;
+      requestAnimationFrame(fadeOut);
+    }
+    fadeOut();
+  }
+
+  let autoSpin=0.002;
+  let dragging=false;
+  let prevMouse={x:0,y:0};
+  let velX=0,velY=0;
+  let zoomed=false;
+  let clickT=0,didDrag=false;
+
+  function onDown(e){
+    if(e.button&&e.button!==0) return;
+    dragging=true;didDrag=false;clickT=Date.now();
+    velX=0;velY=0;
+    const p=e.touches?e.touches[0]:e;
+    prevMouse={x:p.clientX,y:p.clientY};
+  }
+  function onMove(e){
+    if(!dragging) return;
+    e.preventDefault();
+    const p=e.touches?e.touches[0]:e;
+    const dx=p.clientX-prevMouse.x;
+    const dy=p.clientY-prevMouse.y;
+    if(Math.abs(dx)+Math.abs(dy)>3) didDrag=true;
+    velY=dx*0.005;velX=dy*0.003;
+    const rx=earth?earth.rotation:placeholder.rotation;
+    rx.y+=velY;rx.x+=velX;
+    rx.x=Math.max(-1.2,Math.min(1.2,rx.x));
+    prevMouse={x:p.clientX,y:p.clientY};
+  }
+  function onUp(){
+    dragging=false;
+    if(!didDrag&&Date.now()-clickT<300) toggleZoom();
+  }
+
+  const cv=renderer.domElement;
+  cv.addEventListener('mousedown',onDown);
+  window.addEventListener('mousemove',onMove);
+  window.addEventListener('mouseup',onUp);
+  cv.addEventListener('touchstart',onDown,{passive:false});
+  window.addEventListener('touchmove',onMove,{passive:false});
+  window.addEventListener('touchend',onUp);
+
+  function toggleZoom(){
+    zoomed=!zoomed;
+    wrap.classList.toggle('zoomed',zoomed);
+    autoSpin=zoomed?0.0008:0.002;
+    setTimeout(onResize,50);setTimeout(onResize,500);setTimeout(onResize,900);
+  }
+
+  function onResize(){
+    getSize();camera.aspect=W/H;camera.updateProjectionMatrix();renderer.setSize(W,H);
+  }
+  new ResizeObserver(onResize).observe(wrap);
+
+  let heroVisible=true;
+  new IntersectionObserver(es=>{heroVisible=es[0].isIntersecting},{threshold:0}).observe(wrap);
+
+  function animate(){
+    requestAnimationFrame(animate);
+    if(!heroVisible&&!dragging) return;
+    const target=earth||placeholder;
+    if(!dragging){
+      velX*=0.94;velY*=0.94;
+      target.rotation.y+=autoSpin+velY;
+      target.rotation.x+=velX;
+      target.rotation.x=Math.max(-1.2,Math.min(1.2,target.rotation.x));
+    }
+    if(earth){
+      placeholder.rotation.copy(earth.rotation);
+      if(outline) outline.rotation.copy(earth.rotation);
+      if(glow) glow.rotation.copy(earth.rotation);
+    }
+    renderer.render(scene,camera);
+  }
+  animate();
+})();
+
+/* ===== ORIGIN SECTION MINI EARTH (auto-rotate only) ===== */
+(function(){
+  const mount=document.getElementById('originEarthMount');
+  if(!mount) return;
+
+  const W=240,H=240;
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(45,1,0.1,100);
+  camera.position.z=2.8;
+
+  const renderer=new THREE.WebGLRenderer({alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(W,H);
+  renderer.setClearColor(0x000000,0);
+  mount.appendChild(renderer.domElement);
+
+  scene.add(new THREE.AmbientLight(0x667799,0.4));
+  const sun=new THREE.DirectionalLight(0xddeeff,1.6);
+  sun.position.set(5,3,5);
+  scene.add(sun);
+
+  const geo=new THREE.SphereGeometry(1,64,64);
+
+  const placeMat=new THREE.MeshBasicMaterial({color:0x0e2a4a});
+  const placeMesh=new THREE.Mesh(geo,placeMat);
+  placeMesh.rotation.x=0.23;
+  scene.add(placeMesh);
+
+  const img=new Image();
+  img.crossOrigin='anonymous';
+  img.onload=function(){
+    const tw=1024,th=512;
+    const c=document.createElement('canvas');
+    c.width=tw;c.height=th;
+    const g=c.getContext('2d');
+    g.drawImage(img,0,0,tw,th);
+    const id=g.getImageData(0,0,tw,th);
+    const d=id.data;
+    for(let i=0;i<d.length;i+=4){
+      const r=d[i],gr=d[i+1],b=d[i+2];
+      const lum=(r*0.299+gr*0.587+b*0.114)/255;
+      const maxC=Math.max(r,gr,b),minC=Math.min(r,gr,b);
+      const sat=(maxC-minC)/(maxC+1);
+      const isOcean=b>gr&&b>r&&sat>0.12;
+      const isIce=lum>0.75&&sat<0.18;
+      let tr,tg,tb;
+      if(isIce){tr=175+lum*70;tg=210+lum*40;tb=235+lum*18;}
+      else if(isOcean){tr=10+lum*18;tg=40+lum*40;tb=85+lum*55;}
+      else{tr=45+lum*70;tg=115+lum*65;tb=165+lum*50;}
+      d[i]=Math.min(255,Math.max(0,Math.round(tr)));
+      d[i+1]=Math.min(255,Math.max(0,Math.round(tg)));
+      d[i+2]=Math.min(255,Math.max(0,Math.round(tb)));
+    }
+    g.putImageData(id,0,0);
+    const soft=document.createElement('canvas');
+    soft.width=tw;soft.height=th;
+    const sg=soft.getContext('2d');
+    sg.drawImage(c,0,0,Math.floor(tw/3),Math.floor(th/3));
+    sg.drawImage(soft,0,0,Math.floor(tw/3),Math.floor(th/3),0,0,tw,th);
+    g.globalAlpha=0.25;
+    g.drawImage(soft,0,0);
+    g.globalAlpha=1.0;
+
+    const tex=new THREE.CanvasTexture(c);
+    tex.anisotropy=renderer.capabilities.getMaxAnisotropy();
+
+    const mat=new THREE.ShaderMaterial({
+      uniforms:{uMap:{value:tex},uSunDir:{value:new THREE.Vector3(5,3,5).normalize()}},
+      vertexShader:`
+        varying vec2 vUv;varying vec3 vNormal;varying vec3 vViewDir;
+        void main(){vUv=uv;vec4 mv=modelViewMatrix*vec4(position,1.0);vNormal=normalize(normalMatrix*normal);vViewDir=normalize(-mv.xyz);gl_Position=projectionMatrix*mv;}
+      `,
+      fragmentShader:`
+        uniform sampler2D uMap;uniform vec3 uSunDir;
+        varying vec2 vUv;varying vec3 vNormal;varying vec3 vViewDir;
+        void main(){
+          vec3 base=texture2D(uMap,vUv).rgb;
+          float NdotL=dot(vNormal,uSunDir);
+          float toon=smoothstep(-0.5,-0.2,NdotL)*0.2+smoothstep(-0.02,0.22,NdotL)*0.28+smoothstep(0.38,0.62,NdotL)*0.28;
+          toon+=0.24;
+          vec3 lit=base*toon;
+          float spec=pow(max(0.0,dot(reflect(-uSunDir,vNormal),vViewDir)),32.0);
+          lit+=vec3(0.7,0.85,1.0)*spec*0.15;
+          float rim=1.0-max(0.0,dot(vNormal,vViewDir));
+          lit+=vec3(0.25,0.55,1.0)*smoothstep(0.55,1.0,rim)*0.35;
+          gl_FragColor=vec4(lit,1.0);
+        }
+      `
+    });
+    const earth=new THREE.Mesh(geo,mat);
+    earth.rotation.x=0.23;
+    scene.add(earth);
+
+    const outMat=new THREE.ShaderMaterial({
+      vertexShader:`void main(){vec3 p=position+normal*0.016;gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.0);}`,
+      fragmentShader:`void main(){gl_FragColor=vec4(0.02,0.04,0.10,1.0);}`,
+      side:THREE.BackSide
+    });
+    const outMesh=new THREE.Mesh(geo,outMat);
+    outMesh.rotation.x=0.23;
+    scene.add(outMesh);
+
+    const glowGeo=new THREE.SphereGeometry(1.08,48,48);
+    const glowMat=new THREE.ShaderMaterial({
+      vertexShader:`varying vec3 vN;varying vec3 vV;void main(){vec4 mv=modelViewMatrix*vec4(position,1.0);vN=normalize(normalMatrix*normal);vV=normalize(-mv.xyz);gl_Position=projectionMatrix*mv;}`,
+      fragmentShader:`varying vec3 vN;varying vec3 vV;void main(){float r=max(0.0,dot(vN,vV));gl_FragColor=vec4(0.22,0.52,1.0,pow(r,1.4)*0.45);}`,
+      transparent:true,depthWrite:false,side:THREE.BackSide,blending:THREE.AdditiveBlending
+    });
+    scene.add(new THREE.Mesh(glowGeo,glowMat));
+
+    scene.remove(placeMesh);
+    placeMat.dispose();
+
+    let miniVisible=true;
+    new IntersectionObserver(es=>{miniVisible=es[0].isIntersecting},{threshold:0}).observe(mount);
+
+    renderer.render(scene,camera);
+
+    function spin(){
+      requestAnimationFrame(spin);
+      if(!miniVisible) return;
+      earth.rotation.y+=0.003;
+      outMesh.rotation.copy(earth.rotation);
+      renderer.render(scene,camera);
+    }
+    spin();
+  };
+  img.src='textures/earth_daymap.jpg';
+
+  function renderPlaceholder(){
+    placeMesh.rotation.y+=0.003;
+    renderer.render(scene,camera);
+    if(placeMesh.parent) requestAnimationFrame(renderPlaceholder);
+  }
+  renderPlaceholder();
+
+  new ResizeObserver(()=>{
+    const r=mount.getBoundingClientRect();
+    const s=Math.min(r.width,r.height);
+    camera.aspect=1;
+    camera.updateProjectionMatrix();
+    renderer.setSize(s,s);
+  }).observe(mount);
+
+})();
 </script>
 </body>
 </html>
