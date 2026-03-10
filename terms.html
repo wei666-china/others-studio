@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAY 1 - Terms of Service</title>
+    <meta name="description" content="DAY 1 用户服务协议 — 使用条款、运动风险告知、责任限制及隐私保护说明。">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+            background: #0A0A0F;
+            color: rgba(255,255,255,0.8);
+            min-height: 100vh;
+        }
+        .lang-toggle {
+            position: fixed; top: 20px; right: 24px; z-index: 100;
+            display: flex; gap: 8px;
+            background: rgba(255,255,255,0.08); border-radius: 20px; padding: 4px;
+        }
+        .lang-btn {
+            padding: 6px 14px; border: none; border-radius: 16px;
+            background: transparent; color: rgba(255,255,255,0.5);
+            cursor: pointer; font-size: 14px; transition: all 0.3s;
+        }
+        .lang-btn.active { background: rgba(255,255,255,0.15); color: #fff; }
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px; max-width: 900px; margin: 0 auto;
+        }
+        .logo { font-size: 24px; font-weight: 700; color: #fff; text-decoration: none; }
+        .logo span { color: #6C5CE7; }
+        .back-link { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 15px; }
+        .back-link:hover { color: #fff; }
+        .content {
+            max-width: 760px; margin: 0 auto; padding: 20px 24px 80px;
+            line-height: 1.8; font-size: 16px;
+        }
+        .content h1 { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+        .content .meta { font-size: 14px; color: rgba(255,255,255,0.45); margin-bottom: 32px; }
+        .content h2 {
+            font-size: 20px; font-weight: 600; color: #fff;
+            margin-top: 36px; margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .content p { margin-bottom: 12px; color: rgba(255,255,255,0.7); }
+        .content ul { margin: 8px 0 12px 20px; color: rgba(255,255,255,0.65); }
+        .content ul li { margin-bottom: 4px; }
+        .content .warning {
+            background: rgba(253,121,168,0.08);
+            border-left: 3px solid #FD79A8;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        .content strong { color: rgba(255,255,255,0.9); }
+        .content a { color: #A29BFE; }
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            text-align: center; padding: 24px;
+            font-size: 14px; color: rgba(255,255,255,0.4);
+        }
+        @media (max-width: 600px) {
+            nav { padding: 16px 20px; }
+            .content { padding: 16px 20px 60px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="lang-toggle">
+    <button class="lang-btn active" onclick="switchLang('zh', this)">中文</button>
+    <button class="lang-btn" onclick="switchLang('en', this)">EN</button>
+</div>
+
+<nav>
+    <a href="index.html" class="logo">DAY <span>1</span></a>
+    <a href="index.html" class="back-link" data-zh="← 返回首頁" data-en="← Back to Home">← 返回首頁</a>
+</nav>
+
+<!-- 中文版 -->
+<div class="content" id="content-zh">
+<h1>用戶服務協議</h1>
+<p class="meta">生效日期：2025 年 2 月 1 日 ｜ 最後更新：2026 年 2 月</p>
+<p>歡迎使用 DAY 1（以下簡稱「本應用」）。本應用由獨立開發者 Liu Azure（以下簡稱「我們」或「開發者」）開發和營運。</p>
+<p>請您在使用本應用前，務必審慎閱讀並充分理解本協議的全部條款，特別是涉及免責聲明、責任限制、爭議解決等條款。當您點擊「同意」或開始使用本應用時，即表示您同意受本協議約束。</p>
+
+<h2>一、服務概述與性質聲明</h2>
+<p>1.1 本應用是一款面向個人用戶的健身訓練輔助工具，提供訓練計劃制定、飲食建議、健康數據分析及 AI 對話建議等功能。</p>
+<div class="warning">
+<strong>1.2 重要聲明——非醫療服務：</strong><br>
+(a) 本應用提供的所有訓練計劃、飲食建議、健康數據分析及 AI 對話建議均僅為輔助參考資訊，不構成任何形式的醫療建議、醫學診斷或治療方案。<br>
+(b) 本應用不是醫療器械，不具備醫療診斷功能。任何資訊不能替代持牌醫療專業人員的意見。<br>
+(c) 本應用基於用戶自行提供的資料以及可穿戴裝置採集的數據生成建議，可能存在測量誤差。
+</div>
+<p>1.3 如本應用提供的建議與醫療專業人員的意見不一致，您應以醫療專業人員的意見為準。</p>
+
+<h2>二、運動風險告知與確認</h2>
+<div class="warning">
+<strong>2.1 您知悉並確認：體育運動本身存在固有且不可完全消除的風險。</strong>包括但不限於：肌肉拉傷、韌帶撕裂、關節扭傷、骨折、心血管意外事件（包括心律失常、心肌梗塞、心臟驟停甚至猝死）、橫紋肌溶解症、脫水、中暑等。
+</div>
+<p>2.2 您應充分評估自身身體條件，自主、謹慎地選擇適合的訓練內容和強度。</p>
+<p>2.3 運動過程中如出現胸悶、胸痛、頭暈、心悸、呼吸困難、劇烈疼痛等任何異常症狀，應立即停止運動並及時就醫。</p>
+
+<h2>三、健康前提條款</h2>
+<p>3.1 使用本應用前，您應確認自身健康狀況允許進行體育鍛煉。</p>
+<p>3.2 如您患有心臟疾病、高血壓、糖尿病、骨質疏鬆、關節疾病、哮喘、癲癇、貧血等，應先取得醫生的運動許可。</p>
+<p>3.3 <strong>50 歲及以上用戶</strong>：強烈建議運動前諮詢醫生。</p>
+<p>3.4 <strong>孕期及產後用戶</strong>：應僅在醫生許可下使用訓練功能。</p>
+<p>3.5 <strong>未成年人</strong>：未滿 18 歲須在監護人知情同意下使用。</p>
+
+<h2>四、責任限制與免責條款</h2>
+<div class="warning">
+<strong>4.1 在適用法律允許的最大範圍內</strong>，對以下情形導致的傷害或損失，我們不承擔法律責任：(a) 未如實填報健康狀況；(b) 忽視安全警告；(c) 不適宜狀態下訓練；(d) 超出身體能力的訓練。
+</div>
+<div class="warning">
+<strong>4.2 AI 建議</strong>由人工智能演算法自動生成，可能存在不準確或不適用的情況。用戶應獨立判斷，不應作為唯一決策依據。
+</div>
+<p>4.3-4.5 因設備數據誤差、不可抗力等導致的問題，以及任何間接損失，我們在法律允許範圍內不承擔責任。</p>
+
+<h2>五、用戶義務</h2>
+<ul>
+    <li>如實填寫並及時更新個人資料</li>
+    <li>每次訓練前充分熱身，遵守安全警告</li>
+    <li>循序漸進增加強度，不適時立即停止</li>
+    <li>定期健康體檢（尤其 50 歲以上用戶）</li>
+    <li>遵守適用法律法規</li>
+</ul>
+
+<h2>六、知識產權</h2>
+<p>本應用的所有內容之知識產權歸我們所有。您獲得有限的、非排他性的、不可轉讓的許可，僅供個人使用。</p>
+
+<h2>七、數據說明</h2>
+<p>詳見我們的<a href="privacy.html">私隱政策</a>。用戶數據僅存儲在本地裝置。您可隨時管理或通過卸載刪除全部數據。</p>
+
+<h2>iCloud 雲端同步服務</h2>
+<p>本應用提供可選的 iCloud 雲端同步功能，讓您的資料在多部 Apple 裝置間自動同步。使用此功能前，請注意以下事項：</p>
+<ul>
+    <li>iCloud 雲端同步功能預設為關閉，需由您主動選擇開啟</li>
+    <li>iCloud 服務由 Apple Inc. 提供及營運，受 Apple 服務條款約束</li>
+    <li>我們作為開發者無法存取您儲存在 iCloud 中的任何個人資料</li>
+    <li>資料儲存位置由 Apple 根據您所在地區確定</li>
+    <li>您可隨時在應用設定中關閉同步，並選擇是否刪除雲端已同步的資料</li>
+    <li>我們對因 Apple iCloud 服務中斷、故障或資料遺失所造成的損失不承擔責任</li>
+    <li>建議您定期透過 iOS 系統設定檢查 iCloud 儲存空間使用情況</li>
+</ul>
+
+<h2>八、服務變更與終止</h2>
+<p>我們可能對功能進行變更、升級或調整，並將盡合理努力提前通知。</p>
+
+<h2>九、協議變更</h2>
+<p>實質性變更時將通過應用內彈窗通知。繼續使用即視為接受。</p>
+
+<h2>十、適用法律與爭議解決</h2>
+<p>10.1 本協議適用香港特別行政區法律。</p>
+<p>10.2 爭議應首先友好協商，協商不成的提交香港具管轄權的法院解決。</p>
+
+<h2>十一、其他條款</h2>
+<p>可分割性、完整協議及權利保留等標準條款適用。</p>
+
+<h2>十二、聯絡方式</h2>
+<p>獨立開發者：Liu Azure<br>
+電郵：<a href="mailto:foraiandfocus@gmail.com">foraiandfocus@gmail.com</a></p>
+</div>
+
+<!-- English Version -->
+<div class="content" id="content-en" style="display:none;">
+<h1>Terms of Service</h1>
+<p class="meta">Effective Date: 1 February 2025 ｜ Last Updated: February 2026</p>
+<p>Welcome to DAY 1 ("the App"). The App is developed and operated by independent developer Liu Azure ("we," "our," or "us").</p>
+<p>Please carefully read and fully understand all provisions of these Terms before using the App, with particular attention to disclaimers, limitation of liability, and dispute resolution. By tapping "Agree" or otherwise using the App, you agree to be bound by these Terms.</p>
+
+<h2>1. Service Overview</h2>
+<p>1.1 The App is a personal fitness training tool providing workout planning, dietary guidance, health data analysis, and AI-powered recommendations.</p>
+<div class="warning">
+<strong>1.2 IMPORTANT — NOT A MEDICAL SERVICE:</strong><br>
+(a) All training plans, dietary suggestions, health data analyses, and AI recommendations are supplementary reference information only and do not constitute medical advice.<br>
+(b) This App is not a medical device. No information provided can replace professional medical opinion.<br>
+(c) Recommendations are based on user-provided information and wearable device data, which may contain measurement errors.
+</div>
+<p>1.3 If App recommendations conflict with your healthcare provider's advice, follow your healthcare provider.</p>
+
+<h2>2. Exercise Risk Disclosure</h2>
+<div class="warning">
+<strong>2.1 You acknowledge that physical exercise carries inherent risks</strong> including but not limited to: muscle strains, ligament tears, joint sprains, fractures, cardiovascular events (arrhythmia, myocardial infarction, cardiac arrest, sudden death), rhabdomyolysis, dehydration, and heat stroke.
+</div>
+<p>2.2 You should evaluate your physical condition and prudently select appropriate training.</p>
+<p>2.3 If you experience chest pain, dizziness, palpitations, breathing difficulty, severe pain, or any abnormal symptoms during exercise, stop immediately and seek medical attention.</p>
+
+<h2>3. Health Prerequisites</h2>
+<p>3.1 Confirm your health permits exercise before using the App.</p>
+<p>3.2 If you have cardiovascular disease, hypertension, diabetes, osteoporosis, joint disease, asthma, epilepsy, anaemia, or other conditions, obtain medical clearance first.</p>
+<p>3.3 <strong>Users aged 50+:</strong> Strongly recommended to consult a physician before starting.</p>
+<p>3.4 <strong>Pregnant/postpartum users:</strong> Use training features only with medical clearance.</p>
+<p>3.5 <strong>Minors:</strong> Users under 18 require parental consent and supervision.</p>
+
+<h2>4. Limitation of Liability</h2>
+<div class="warning">
+<strong>4.1 TO THE MAXIMUM EXTENT PERMITTED BY LAW</strong>, we are not liable for injury or loss arising from: (a) inaccurate health reporting; (b) ignoring safety warnings; (c) exercising in unsuitable condition; (d) exceeding physical capabilities.
+</div>
+<div class="warning">
+<strong>4.2 AI recommendations</strong> are automatically generated and may be inaccurate or unsuitable. Always exercise independent judgement.
+</div>
+<p>4.3-4.5 We are not liable for device data errors, force majeure events, or any indirect/consequential damages to the maximum extent permitted by law.</p>
+
+<h2>5. User Obligations</h2>
+<ul>
+    <li>Provide and maintain accurate personal information</li>
+    <li>Warm up before training and follow safety warnings</li>
+    <li>Increase intensity progressively; stop if unwell</li>
+    <li>Regular health check-ups (especially users aged 50+)</li>
+    <li>Comply with all applicable laws</li>
+</ul>
+
+<h2>6. Intellectual Property</h2>
+<p>All App content is owned by us. You receive a limited, non-exclusive, non-transferable, revocable licence for personal use only.</p>
+
+<h2>7. Data Practices</h2>
+<p>See our <a href="privacy.html">Privacy Policy</a>. User data is stored locally only. You may manage or delete all data by uninstalling.</p>
+
+<h2>iCloud Cloud Sync Service</h2>
+<p>This app offers an optional iCloud cloud sync feature that automatically syncs your data across multiple Apple devices. Before using this feature, please note:</p>
+<ul>
+    <li>iCloud sync is disabled by default and must be manually enabled by you</li>
+    <li>iCloud service is provided and operated by Apple Inc., subject to Apple's Terms of Service</li>
+    <li>As the developer, we cannot access any personal data stored in your iCloud</li>
+    <li>Data storage location is determined by Apple based on your region</li>
+    <li>You can disable sync at any time in the app settings and choose whether to delete synced cloud data</li>
+    <li>We are not liable for any loss caused by Apple iCloud service interruptions, failures, or data loss</li>
+    <li>We recommend regularly checking your iCloud storage usage in iOS System Settings</li>
+</ul>
+
+<h2>8. Service Changes</h2>
+<p>We may modify, upgrade, or adjust features with reasonable advance notice.</p>
+
+<h2>9. Modifications to Terms</h2>
+<p>Material changes notified via in-app pop-up. Continued use constitutes acceptance.</p>
+
+<h2>10. Governing Law</h2>
+<p>10.1 These Terms are governed by the laws of the Hong Kong SAR.</p>
+<p>10.2 Disputes shall first be resolved by negotiation; failing which, submitted to the courts of Hong Kong.</p>
+
+<h2>11. Miscellaneous</h2>
+<p>Standard provisions regarding severability, entire agreement, and reservation of rights apply.</p>
+
+<h2>12. Contact Us</h2>
+<p>Independent Developer: Liu Azure<br>
+Email: <a href="mailto:foraiandfocus@gmail.com">foraiandfocus@gmail.com</a></p>
+</div>
+
+<footer>&copy; 2025-2026 Others Studio &middot; 蔚蓝 — DAY 1. All rights reserved.</footer>
+
+<script>
+function switchLang(lang, btn) {
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('content-zh').style.display = lang === 'zh' ? 'block' : 'none';
+    document.getElementById('content-en').style.display = lang === 'en' ? 'block' : 'none';
+    document.querySelectorAll('[data-zh][data-en]').forEach(el => {
+        el.textContent = el.getAttribute('data-' + lang);
+    });
+}
+</script>
+</body>
+</html>
